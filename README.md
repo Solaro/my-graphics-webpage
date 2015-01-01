@@ -23,6 +23,7 @@ I was finally able to have a 3D-template that I wanted to work with on my websit
 I started adding additional 3D-objects to website, but this is still a work in progress.
 
 Additional information:
+
 Spinning Box: You can control how fast the box rotates using the top right panel
 
 Spinning Sphere: You can control how fast the sphere rotates using the top right panel
