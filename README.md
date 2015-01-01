@@ -11,6 +11,10 @@ I decided to take what I learned from my other webdevelopment classes
 to create a websites that displays various 3D graphic models. This itself
 took a while to accomplish. 
 
+Here is the website: 
+
+http://tkuo-website.appspot.com/
+
 Using:
 
 http://yomotsu.github.io/threejs-examples/
@@ -18,4 +22,6 @@ http://yomotsu.github.io/threejs-examples/
 I was finally able to have a 3D-template that I wanted to work with on my website. 
 
 I started adding additional 3D-objects to website, but this is still a work in progress.
+
+
 
