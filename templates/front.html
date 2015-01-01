@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Front Page
+		</title>
+		<link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<h1 style="color: #388E8E"> Pick A Graphic Page To Render </h1>
+			</div>
+			<br>
+			<div class="row">
+				<form method="post">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-3">
+								<label>
+									Spinning Box
+									<input type = "radio" name= "graphic" value="box">
+								</label>
+							</div>
+							<div class="col-md-3">	
+								<label>
+									Spinning Sphere
+									<input type = "radio" name= "graphic" value="sphere">
+								</label>
+							</div>
+							<div class="col-md-3">
+								<label>
+									Wire + Transparent Sphere 
+									<input type = "radio" name= "graphic" value="sphere-wire">
+								</label>
+							</div>
+							<div class="col-md-3">
+								<label>
+									Suprise me
+									<input type = "radio" name= "graphic" value="suprise-me">
+								</label>
+							</div>		
+						</div>
+						<div class="row">
+							<h5 style="color: red">{{error}}</h5>
+						</div>
+						<div class="row">
+							<input type="submit">
+						</div>
+					</div>		
+				</form>
+			</div>
+			<br>
+			<br>
+			<hr>
+			<div class="row">
+				work in progress...
+			</div>
+			<div class="row">
+				more graphics coming soon...
+			</div>
+		</div>
+	</body>
+</html>

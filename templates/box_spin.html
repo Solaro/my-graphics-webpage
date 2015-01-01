@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>A Simple Box</title>
+		<script type="text/javascript" src="/static/three.min.js"></script>
+		<script type="text/javascript" src="/static/dat.gui.min.js"></script>
+		<script src="/static/OrbitAndPanControls.js"></script>
+		<script src="/static/OrbitAndPanControls.js"></script>
+		<script src="/static/Coordinates.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css">
+		<style>
+			body { margin: 0; background: white;}
+			canvas { width: 100%; height: 100%;}
+		</style>
+	</head>
+	<body>
+			<div class="container">
+				<h1> Its a Spinning Cube! </h1>
+			<a href="/"> main page </a>
+			<br>
+			<hr>
+			<script>
+				var camera, scene, renderer, cube, effectController, cameraControls;
+				var gridX = false;
+				var gridY = false;
+				var gridZ = false;
+				var axes = false;
+				var ground = true;
+
+				
+
+				var init = function() {
+					//var canvasWidth = 846;
+					//var canvasHeight = 494;
+
+					var canvasWidth = window.innerWidth/1.5;
+					var canvasHeight = window.innerHeight/1.5;
+
+					// RENDERER
+					renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+					renderer.gammaInput = true;
+					renderer.gammaOutput = true;
+				    renderer.shadowMapEnabled = true;
+
+				    renderer.setSize(canvasWidth, canvasHeight);
+
+				    // change background of the renderer
+					renderer.setClearColor(0xffffff, 1);
+
+					// CAMERA
+					camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+					// set camera position
+					camera.position.set( 0, 0, 500);
+
+					// CAMERA CONTROLS
+					cameraControls = new THREE.OrbitAndPanControls(camera, renderer.domElement);
+					cameraControls.target.set(4,301,92);
+				}
+
+				var fillScene = function(){
+					scene = new THREE.Scene();
+					// create fog to scene
+					scene.fog = new THREE.Fog( 0x808080, 3000, 6000 );
+					// create ambient light to scene
+					var ambientLight = new THREE.AmbientLight( 0x222222 );
+					// create directional light
+					var light = new THREE.DirectionalLight( 0xffffff, 1.0 );
+					light.position.set( 200, 400, 500 );
+					// create directional light
+					var light2 = new THREE.DirectionalLight( 0xffffff, 1.0 );
+					light2.position.set( -400, 200, -300 );
+
+					scene.add(ambientLight);
+					scene.add(light);
+					scene.add(light2);
+
+					scene.add(camera)
+
+					if (ground) {
+							Coordinates.drawGround({size:1000});		
+						}
+						if (gridX) {
+							Coordinates.drawGrid({size:1000,scale:0.01});
+						}
+						if (gridY) {
+							Coordinates.drawGrid({size:1000,scale:0.01, orientation:"y"});
+						}
+						if (gridZ) {
+							Coordinates.drawGrid({size:1000,scale:0.01, orientation:"z"});	
+						}
+						if (axes) {
+							Coordinates.drawAllAxes({axisLength:300,axisRadius:2,axisTess:50});
+						}
+					}
+
+				var box = function(){
+					var geometry = new THREE.CubeGeometry( 200, 200, 200 );
+					var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
+					cube = new THREE.Mesh( geometry, material );
+					scene.add(cube);
+				}
+
+				var setupGui = function(){
+					effectController = {
+						// hack to make dat.GUI show decimal places
+						x_rotation: 0.0001,	
+						y_rotation: 0.0001,
+						newGridX: gridX,
+						newGridY: gridY,
+						newGridZ: gridZ,
+						newGround: ground,
+						newAxes: axes,
+					};
+
+					// create a gui type
+					var gui = new dat.GUI();
+					gui.add( effectController, "x_rotation", -0.05, 0.1 ).name("x_rotation speed");
+					gui.add( effectController, "y_rotation", -0.05, 0.1 ).name("y_rotation speed");
+					gui.add(effectController, "newGridX").name("Show XZ grid");
+					gui.add( effectController, "newGridY" ).name("Show YZ grid");
+					gui.add( effectController, "newGridZ" ).name("Show XY grid");
+					gui.add( effectController, "newGround" ).name("Show ground");
+					gui.add( effectController, "newAxes" ).name("Show axes");
+
+					gui.close();
+				}
+				
+				var addToDom = function(){
+					document.body.appendChild(renderer.domElement);
+				}
+
+				var render = function () {
+
+					// currently does not work
+					window.requestAnimationFrame( render );
+					if (effectController.newGridX !== gridX || effectController.newGridY !== gridY || effectController.newGridZ !== gridZ || effectController.newGround !== ground || effectController.newAxes !== axes)
+						{
+							gridX = effectController.newGridX;
+							gridY = effectController.newGridY;
+							gridZ = effectController.newGridZ;
+							ground = effectController.newGround;
+							axes = effectController.newAxes;
+
+							fillScene();
+						}
+
+					cube.rotation.x += 0.05 + effectController.x_rotation;
+					cube.rotation.y += 0.05 + effectController.y_rotation;
+
+					renderer.render(scene, camera);
+				};
+
+				init();
+				fillScene();
+				setupGui();
+				box();
+				addToDom();
+				render();
+			</script>
+			</div>
+			
+		<hr>
+		<br>
+	</body>
+</html>
