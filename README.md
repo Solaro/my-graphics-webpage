@@ -24,8 +24,11 @@ I started adding additional 3D-objects to website, but this is still a work in p
 
 Additional information:
 Spinning Box: You can control how fast the box rotates using the top right panel
+
 Spinning Sphere: You can control how fast the sphere rotates using the top right panel
+
 Wire + Transparent Sphere: Click and interact with screen! You can also zoom in out.
+
 Suprise me: Suprise.
 
 
